@@ -1,0 +1,29 @@
+aid: crisp
+url: https://raw.githubusercontent.com/api-evangelist/crisp/refs/heads/main/apis.yml
+name: Crisp
+x-type: company
+description: >-
+  Crisp is a customer messaging platform for SMBs combining live chat, shared inbox, helpdesk, knowledge base, status pages, and chatbots — all in one app.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Customer Support
+  - Chat
+  - Live Chat
+  - Helpdesk
+  - SMB
+created: '2026-05-08'
+modified: '2026-05-08'
+specificationVersion: '0.19'
+apis: []
+common:
+  - type: Website
+    url: https://crisp.chat/
+  - type: Plans
+    url: plans/crisp-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/crisp-rate-limits.yml
+  - type: FinOps
+    url: finops/crisp-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
