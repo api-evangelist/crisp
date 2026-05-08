@@ -1,6 +1,6 @@
 # Crisp (crisp)
 
-Crisp is a customer messaging platform for SMBs combining live chat, shared inbox, helpdesk, knowledge base, status pages, and chatbots — all in one app.
+Crisp is a customer messaging platform offering live chat, shared inbox, helpdesk, chatbot, and CRM features for businesses of all sizes.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/crisp/refs/heads/main/apis.yml)
 
@@ -10,14 +10,23 @@ Crisp is a customer messaging platform for SMBs combining live chat, shared inbo
 - **x-type:** company
 
 ## Tags:
- - Customer Support, Chat, Live Chat, Helpdesk, SMB
+ - Customer Service, Live Chat, Helpdesk, Messaging, Chatbots
 
 ## Timestamps
 - **Created:** 2026-05-08
 - **Modified:** 2026-05-08
 
+## APIs
+
+### Crisp REST API v1
+Crisp REST API v1 manages websites, conversations, messages, people (contacts), segments, helpdesks, campaigns, plugins, and operator/team configuration with token-based scoped authentication.
+
+- **Human URL:** https://docs.crisp.chat/references/rest-api/v1/
+- **Base URL:** https://api.crisp.chat/v1
+
 ## Common Properties
 - [Website](https://crisp.chat/)
+- [Documentation](https://docs.crisp.chat/references/rest-api/v1/)
 - [Plans](plans/crisp-plans-pricing.yml) — placeholder, pipeline reconciles later
 - [RateLimits](rate-limits/crisp-rate-limits.yml) — placeholder
 - [FinOps](finops/crisp-finops.yml) — FOCUS-aligned placeholder

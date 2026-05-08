@@ -3,21 +3,39 @@ url: https://raw.githubusercontent.com/api-evangelist/crisp/refs/heads/main/apis
 name: Crisp
 x-type: company
 description: >-
-  Crisp is a customer messaging platform for SMBs combining live chat, shared inbox, helpdesk, knowledge base, status pages, and chatbots — all in one app.
+  Crisp is a customer messaging platform offering live chat, shared inbox, helpdesk, chatbot, and CRM features for businesses of all sizes.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Customer Support
-  - Chat
+  - Customer Service
   - Live Chat
   - Helpdesk
-  - SMB
+  - Messaging
+  - Chatbots
 created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
-apis: []
+apis:
+  - aid: crisp:crisp-rest-api
+    name: Crisp REST API v1
+    description: >-
+      Crisp REST API v1 manages websites, conversations, messages, people (contacts), segments, helpdesks, campaigns, plugins, and operator/team configuration with token-based scoped authentication.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://docs.crisp.chat/references/rest-api/v1/
+    baseURL: https://api.crisp.chat/v1
+    tags:
+      - Messaging
+      - Customer Service
+      - REST
+    properties:
+      - type: Documentation
+        url: https://docs.crisp.chat/references/rest-api/v1/
+      - type: Developers
+        url: https://docs.crisp.chat/
 common:
   - type: Website
     url: https://crisp.chat/
+  - type: Documentation
+    url: https://docs.crisp.chat/references/rest-api/v1/
   - type: Plans
     url: plans/crisp-plans-pricing.yml
   - type: RateLimits
