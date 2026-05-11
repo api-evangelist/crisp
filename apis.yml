@@ -42,6 +42,97 @@ common:
     url: rate-limits/crisp-rate-limits.yml
   - type: FinOps
     url: finops/crisp-finops.yml
+  - type: Integrations
+    url: https://crisp.chat/en/integrations/
+integrations:
+  - name: page-header-search-icon
+  - name: integrations-hero-illustration
+  - name: integration-icon-Videosupport
+  - name: integration-icon-n8n
+  - name: integration-icon-Briskport
+  - name: integration-icon-Message Scheduler
+  - name: integration-icon-Segment
+  - name: integration-icon-Zapier
+  - name: integration-icon-Rotic Chatbot
+  - name: integration-icon-Quick Actions
+  - name: integration-icon-Auto-Responder
+  - name: integration-icon-Spam Detector
+  - name: integration-icon-Data Cleaner
+  - name: integration-icon-Quicklinks
+  - name: integration-icon-Auto-Delete
+  - name: integration-icon-Hugo
+  - name: integration-icon-Watchdog
+  - name: integration-icon-Make
+  - name: 'integration-icon-Smart Segment Rules: Auto Segmenting'
+  - name: integration-icon-Bot
+  - name: integration-icon-Jira Service Management
+  - name: integration-icon-Request Screen Recording
+  - name: integration-icon-Cloudflare
+  - name: integration-icon-WHMCS PRO
+  - name: integration-icon-WooCommerce
+  - name: integration-icon-WHMCS
+  - name: integration-icon-Wordpress
+  - name: integration-icon-Shopify
+  - name: integration-icon-Prestashop
+  - name: integration-icon-Magento
+  - name: integration-icon-Joomla
+  - name: integration-icon-Webflow
+  - name: integration-icon-Klaviyo
+  - name: integration-icon-Pipedrive
+  - name: integration-icon-Zoho
+  - name: integration-icon-Microsoft Dynamics 365
+  - name: integration-icon-Mailchimp
+  - name: integration-icon-Hubspot
+  - name: integration-icon-Salesforce
+  - name: integration-icon-Tabular - Email Builder
+  - name: integration-icon-HockeyStack
+  - name: integration-icon-Session Recordings
+  - name: integration-icon-ActiveDEMAND
+  - name: integration-icon-SocialPrf
+  - name: integration-icon-Instagram
+  - name: integration-icon-Twitter DM
+  - name: integration-icon-Dropbox Integration
+  - name: integration-icon-Discord
+  - name: integration-icon-Messenger
+  - name: integration-icon-Google Play Reviews
+  - name: integration-icon-Twilio SMS
+  - name: integration-icon-Discord Tickets
+  - name: integration-icon-Viber
+  - name: integration-icon-WhatsApp
+  - name: integration-icon-Line
+  - name: integration-icon-Telegram
+  - name: integration-icon-Operators Analytics
+  - name: integration-icon-Chat Rate Pro
+  - name: integration-icon-Email Insights
+  - name: integration-icon-Smiirl
+  - name: integration-icon-Ply
+  - name: integration-icon-Help Desk Hero
+  - name: integration-icon-Ask Rating
+  - name: integration-icon-Produktly
+  - name: integration-icon-Onepilot
+  - name: integration-icon-Contact Form
+  - name: integration-icon-IsDown
+  - name: integration-icon-ChargeDesk
+  - name: integration-icon-Ticket Center
+  - name: integration-icon-Stripe
+  - name: integration-icon-Jimo
+  - name: integration-icon-GitHub
+  - name: integration-icon-Ticket Manager
+  - name: integration-icon-Olvy
+  - name: integration-icon-Jira
+  - name: integration-icon-Ringover
+  - name: integration-icon-Aircall
+  - name: integration-icon-Trello
+  - name: integration-icon-Slack
+  - name: integration-icon-KrispCall
+  - name: integration-icon-Raycast
+  - name: footer-cta-background
+  - name: footer-cta-pattern
+  - name: footer-cta-reception
+  - name: footer-cta-persona
+  - name: footer-cta-badge-g2-high-performer
+  - name: footer-cta-badge-g2-momentum-leader
+  - name: footer-cta-badge-g2-loved
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
