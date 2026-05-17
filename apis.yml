@@ -1,7 +1,7 @@
 aid: crisp
 url: https://raw.githubusercontent.com/api-evangelist/crisp/refs/heads/main/apis.yml
 name: Crisp
-x-type: company
+kind: company
 description: >-
   Crisp is a customer messaging platform offering live chat, shared inbox, helpdesk, chatbot, and CRM features for businesses of all sizes.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
