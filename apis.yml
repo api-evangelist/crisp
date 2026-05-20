@@ -32,6 +32,10 @@ apis:
       - type: Developers
         url: https://docs.crisp.chat/
 common:
+  - type: GitHubOrganization
+    url: https://github.com/crisp-im
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/crisp-im
   - type: Website
     url: https://crisp.chat/
   - type: Documentation
