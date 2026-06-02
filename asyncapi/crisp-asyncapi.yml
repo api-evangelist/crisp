@@ -1,0 +1,550 @@
+asyncapi: "2.6.0"
+info:
+  title: Crisp Realtime Surface (Webhooks + RTM)
+  version: "1.0.0"
+  description: |
+    AsyncAPI description of Crisp's two realtime delivery surfaces:
+
+    * **Web Hooks (v1)** — HTTP POST callbacks delivered to a subscriber URL
+      registered on a Crisp website or Crisp plugin. Payload envelope:
+      `{ website_id, event, data, timestamp }`.
+      Plugin Hooks are signed with HMAC-SHA256 via the `X-Crisp-Signature`
+      header. Website Hooks are not signed; URL-parameter secrets are used
+      instead. Both share the same event taxonomy.
+    * **RTM API (v1)** — Socket.IO (websocket transport only, WSS) stream of
+      the same conversational events plus several RTM-only events
+      (spam, people-import progress, widget action, media animation listing).
+      The endpoint URL is dynamic and must be acquired through the REST API
+      "Get Connect Endpoints" call before each connection.
+
+    Event names are quoted verbatim from
+    https://docs.crisp.chat/references/rtm-api/v1/ and
+    https://docs.crisp.chat/references/web-hooks/v1/.
+  contact:
+    name: Crisp Developer Hub
+    url: https://docs.crisp.chat/
+  license:
+    name: Proprietary
+    url: https://crisp.chat/en/terms/
+
+defaultContentType: application/json
+
+servers:
+  rtm:
+    url: rtm.crisp.chat
+    protocol: wss
+    description: |
+      Socket.IO RTM endpoint. The real host/path is dynamic and MUST be
+      fetched per-connection from the REST API:
+      `GET https://api.crisp.chat/v1/plugin/connect/endpoints`.
+      The Socket.IO client should be created with
+      `transports: ["websocket"]` (no HTTP long-polling, no insecure WS).
+    security:
+      - rtmAuthentication: []
+  webhook:
+    url: "{subscriberHost}"
+    protocol: https
+    description: |
+      The subscriber's own HTTPS endpoint (configured per website or per
+      plugin). Crisp performs `HTTP POST` with a JSON body. Successful
+      delivery requires a 2xx response.
+    variables:
+      subscriberHost:
+        default: subscriber.example.com
+        description: Hostname of the consumer's webhook receiver.
+
+channels:
+  # ---------------------------------------------------------------- WEBHOOK
+  /webhook:
+    description: |
+      Single inbound HTTP channel that fans out all webhook events.
+      The specific event is carried inside the JSON envelope's `event`
+      field — there is no per-event path.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: receiveCrispWebhook
+      summary: Receive a Crisp Web Hook callback
+      bindings:
+        http:
+          type: request
+          method: POST
+          headers:
+            type: object
+            properties:
+              X-Crisp-Hook-Origin:
+                type: string
+                description: Origin of the hook (e.g. `plugin` or `website`).
+              X-Crisp-Request-Timestamp:
+                type: string
+                description: UNIX timestamp at which the hook was emitted.
+              X-Crisp-Signature:
+                type: string
+                description: |
+                  HMAC-SHA256 of `timestamp;body` computed with the plugin
+                  signature secret. **Plugin Hooks only** — Website Hooks
+                  are not signed.
+              X-Delivery-Attempt-Count:
+                type: integer
+                description: Current delivery attempt number.
+              X-Delivery-Attempt-Limit:
+                type: integer
+                description: Maximum allowed delivery attempts.
+      message:
+        oneOf:
+          - $ref: "#/components/messages/WebhookEnvelope"
+
+  # -------------------------------------------------------------------- RTM
+  rtm/authentication:
+    description: |
+      Socket.IO event the client emits within ~10s of connecting to
+      authenticate. Server replies with `authenticated` on success or
+      `unauthorized` on failure.
+    publish:
+      operationId: sendAuthentication
+      message:
+        $ref: "#/components/messages/AuthenticationRequest"
+    subscribe:
+      operationId: onAuthenticationResult
+      message:
+        oneOf:
+          - $ref: "#/components/messages/Authenticated"
+          - $ref: "#/components/messages/Unauthorized"
+
+  # -- Session ---------------------------------------------------------------
+  "rtm/session:update_availability":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:update_verify":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:request:initiated":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_email":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_phone":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_address":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_subject":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_avatar":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_nickname":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_origin":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_data":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_segments":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_block":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_opened":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_closed":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_participants":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_mentions":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_routing":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_inbox":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:set_state":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:sync:capabilities":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:sync:geolocation":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:sync:system":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:sync:network":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:sync:timezone":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:sync:locales":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:sync:pages":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:sync:events":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:sync:rating":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:sync:topic":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:removed":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+  "rtm/session:error":
+    subscribe: { message: { $ref: "#/components/messages/SessionEvent" } }
+
+  # -- Message ---------------------------------------------------------------
+  "rtm/message:updated":
+    subscribe: { message: { $ref: "#/components/messages/MessageEvent" } }
+  "rtm/message:send":
+    subscribe: { message: { $ref: "#/components/messages/MessageEvent" } }
+  "rtm/message:received":
+    subscribe: { message: { $ref: "#/components/messages/MessageEvent" } }
+  "rtm/message:removed":
+    subscribe: { message: { $ref: "#/components/messages/MessageEvent" } }
+  "rtm/message:compose:send":
+    subscribe: { message: { $ref: "#/components/messages/MessageEvent" } }
+  "rtm/message:compose:receive":
+    subscribe: { message: { $ref: "#/components/messages/MessageEvent" } }
+  "rtm/message:acknowledge:read:send":
+    subscribe: { message: { $ref: "#/components/messages/MessageEvent" } }
+  "rtm/message:acknowledge:read:received":
+    subscribe: { message: { $ref: "#/components/messages/MessageEvent" } }
+  "rtm/message:acknowledge:unread:send":
+    subscribe: { message: { $ref: "#/components/messages/MessageEvent" } }
+  "rtm/message:acknowledge:delivered":
+    subscribe: { message: { $ref: "#/components/messages/MessageEvent" } }
+  "rtm/message:acknowledge:ignored":
+    subscribe: { message: { $ref: "#/components/messages/MessageEvent" } }
+  "rtm/message:notify:unread:send":
+    subscribe: { message: { $ref: "#/components/messages/MessageEvent" } }
+  "rtm/message:notify:unread:received":
+    subscribe: { message: { $ref: "#/components/messages/MessageEvent" } }
+
+  # -- Spam (RTM-only) -------------------------------------------------------
+  "rtm/spam:message":
+    description: RTM-only. Not delivered via Web Hooks.
+    subscribe: { message: { $ref: "#/components/messages/SpamEvent" } }
+  "rtm/spam:decision":
+    description: RTM-only. Not delivered via Web Hooks.
+    subscribe: { message: { $ref: "#/components/messages/SpamEvent" } }
+
+  # -- People ----------------------------------------------------------------
+  "rtm/people:profile:created":
+    subscribe: { message: { $ref: "#/components/messages/PeopleEvent" } }
+  "rtm/people:profile:updated":
+    subscribe: { message: { $ref: "#/components/messages/PeopleEvent" } }
+  "rtm/people:profile:removed":
+    subscribe: { message: { $ref: "#/components/messages/PeopleEvent" } }
+  "rtm/people:bind:session":
+    subscribe: { message: { $ref: "#/components/messages/PeopleEvent" } }
+  "rtm/people:sync:profile":
+    subscribe: { message: { $ref: "#/components/messages/PeopleEvent" } }
+  "rtm/people:import:progress":
+    description: RTM-only. Not delivered via Web Hooks.
+    subscribe: { message: { $ref: "#/components/messages/PeopleEvent" } }
+  "rtm/people:import:done":
+    description: RTM-only. Not delivered via Web Hooks.
+    subscribe: { message: { $ref: "#/components/messages/PeopleEvent" } }
+
+  # -- Campaign --------------------------------------------------------------
+  "rtm/campaign:progress":
+    subscribe: { message: { $ref: "#/components/messages/CampaignEvent" } }
+  "rtm/campaign:dispatched":
+    subscribe: { message: { $ref: "#/components/messages/CampaignEvent" } }
+  "rtm/campaign:running":
+    subscribe: { message: { $ref: "#/components/messages/CampaignEvent" } }
+
+  # -- Browsing --------------------------------------------------------------
+  "rtm/browsing:request:initiated":
+    subscribe: { message: { $ref: "#/components/messages/BrowsingEvent" } }
+  "rtm/browsing:request:rejected":
+    subscribe: { message: { $ref: "#/components/messages/BrowsingEvent" } }
+
+  # -- Call ------------------------------------------------------------------
+  "rtm/call:request:initiated":
+    subscribe: { message: { $ref: "#/components/messages/CallEvent" } }
+  "rtm/call:request:rejected":
+    subscribe: { message: { $ref: "#/components/messages/CallEvent" } }
+
+  # -- Identity / Widget / Status -------------------------------------------
+  "rtm/identity:verify:request":
+    subscribe: { message: { $ref: "#/components/messages/IdentityEvent" } }
+  "rtm/widget:action:processed":
+    description: RTM-only. Not delivered via Web Hooks.
+    subscribe: { message: { $ref: "#/components/messages/WidgetEvent" } }
+  "rtm/status:health:changed":
+    subscribe: { message: { $ref: "#/components/messages/StatusEvent" } }
+
+  # -- Website ---------------------------------------------------------------
+  "rtm/website:update_visitors_count":
+    subscribe: { message: { $ref: "#/components/messages/WebsiteEvent" } }
+  "rtm/website:update_operators_availability":
+    subscribe: { message: { $ref: "#/components/messages/WebsiteEvent" } }
+  "rtm/website:users:available":
+    subscribe: { message: { $ref: "#/components/messages/WebsiteEvent" } }
+
+  # -- Bucket ----------------------------------------------------------------
+  "rtm/bucket:url:upload:generated":
+    subscribe: { message: { $ref: "#/components/messages/BucketEvent" } }
+  "rtm/bucket:url:avatar:generated":
+    subscribe: { message: { $ref: "#/components/messages/BucketEvent" } }
+  "rtm/bucket:url:website:generated":
+    subscribe: { message: { $ref: "#/components/messages/BucketEvent" } }
+  "rtm/bucket:url:campaign:generated":
+    subscribe: { message: { $ref: "#/components/messages/BucketEvent" } }
+  "rtm/bucket:url:helpdesk:generated":
+    subscribe: { message: { $ref: "#/components/messages/BucketEvent" } }
+  "rtm/bucket:url:status:generated":
+    subscribe: { message: { $ref: "#/components/messages/BucketEvent" } }
+  "rtm/bucket:url:processing:generated":
+    subscribe: { message: { $ref: "#/components/messages/BucketEvent" } }
+
+  # -- Media (RTM-only) ------------------------------------------------------
+  "rtm/media:animation:listed":
+    description: RTM-only. Not delivered via Web Hooks.
+    subscribe: { message: { $ref: "#/components/messages/MediaEvent" } }
+
+  # -- Email -----------------------------------------------------------------
+  "rtm/email:subscribe":
+    subscribe: { message: { $ref: "#/components/messages/EmailEvent" } }
+  "rtm/email:track:view":
+    subscribe: { message: { $ref: "#/components/messages/EmailEvent" } }
+
+  # -- Plugin ----------------------------------------------------------------
+  "rtm/plugin:channel":
+    subscribe: { message: { $ref: "#/components/messages/PluginEvent" } }
+  "rtm/plugin:event":
+    subscribe: { message: { $ref: "#/components/messages/PluginEvent" } }
+  "rtm/plugin:subscription:updated":
+    subscribe: { message: { $ref: "#/components/messages/PluginEvent" } }
+  "rtm/plugin:settings:saved":
+    subscribe: { message: { $ref: "#/components/messages/PluginEvent" } }
+
+  # -- Plan ------------------------------------------------------------------
+  "rtm/plan:subscription:updated":
+    subscribe: { message: { $ref: "#/components/messages/PlanEvent" } }
+
+components:
+  securitySchemes:
+    rtmAuthentication:
+      type: userPassword
+      description: |
+        Sent as the Socket.IO `authentication` event with
+        `{ username: <identifier>, password: <key>, tier: <plugin|user>,
+        events: [...] }`. Acquired the same way as REST credentials
+        (plugin token or user token).
+
+  messages:
+    # Webhook envelope ------------------------------------------------------
+    WebhookEnvelope:
+      name: WebhookEnvelope
+      title: Crisp Web Hook delivery envelope
+      summary: HTTP POST body sent to the subscriber's URL.
+      contentType: application/json
+      payload:
+        $ref: "#/components/schemas/WebhookEnvelope"
+
+    # RTM handshake ---------------------------------------------------------
+    AuthenticationRequest:
+      name: authentication
+      title: Socket.IO `authentication` event
+      payload:
+        $ref: "#/components/schemas/AuthenticationPayload"
+    Authenticated:
+      name: authenticated
+      title: Socket.IO `authenticated` ack
+      payload:
+        type: object
+        additionalProperties: true
+    Unauthorized:
+      name: unauthorized
+      title: Socket.IO `unauthorized` ack
+      payload:
+        type: object
+        additionalProperties: true
+
+    # RTM event groups ------------------------------------------------------
+    SessionEvent:
+      name: SessionEvent
+      title: Session namespace event
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    MessageEvent:
+      name: MessageEvent
+      title: Message namespace event
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    SpamEvent:
+      name: SpamEvent
+      title: Spam namespace event (RTM-only)
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    PeopleEvent:
+      name: PeopleEvent
+      title: People namespace event
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    CampaignEvent:
+      name: CampaignEvent
+      title: Campaign namespace event
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    BrowsingEvent:
+      name: BrowsingEvent
+      title: Browsing / MagicBrowse namespace event
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    CallEvent:
+      name: CallEvent
+      title: Call request namespace event
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    IdentityEvent:
+      name: IdentityEvent
+      title: Identity verification namespace event
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    WidgetEvent:
+      name: WidgetEvent
+      title: Widget namespace event (RTM-only)
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    StatusEvent:
+      name: StatusEvent
+      title: Status-page namespace event
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    WebsiteEvent:
+      name: WebsiteEvent
+      title: Website-level namespace event
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    BucketEvent:
+      name: BucketEvent
+      title: Bucket signed-URL namespace event
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    MediaEvent:
+      name: MediaEvent
+      title: Media library namespace event (RTM-only)
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    EmailEvent:
+      name: EmailEvent
+      title: Email namespace event
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    PluginEvent:
+      name: PluginEvent
+      title: Plugin namespace event
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+    PlanEvent:
+      name: PlanEvent
+      title: Plan namespace event
+      payload: { $ref: "#/components/schemas/RtmEnvelope" }
+
+  schemas:
+    WebhookEnvelope:
+      type: object
+      required: [website_id, event, data, timestamp]
+      properties:
+        website_id:
+          type: string
+          description: Crisp website identifier the event belongs to.
+        event:
+          type: string
+          description: Exact event name (e.g. `message:send`).
+          enum:
+            - session:update_availability
+            - session:update_verify
+            - session:request:initiated
+            - session:set_email
+            - session:set_phone
+            - session:set_address
+            - session:set_subject
+            - session:set_avatar
+            - session:set_nickname
+            - session:set_origin
+            - session:set_data
+            - session:set_segments
+            - session:set_block
+            - session:set_opened
+            - session:set_closed
+            - session:set_participants
+            - session:set_mentions
+            - session:set_routing
+            - session:set_inbox
+            - session:set_state
+            - session:sync:capabilities
+            - session:sync:geolocation
+            - session:sync:system
+            - session:sync:network
+            - session:sync:timezone
+            - session:sync:locales
+            - session:sync:pages
+            - session:sync:events
+            - session:sync:rating
+            - session:sync:topic
+            - session:removed
+            - session:error
+            - message:updated
+            - message:send
+            - message:received
+            - message:removed
+            - message:compose:send
+            - message:compose:receive
+            - message:acknowledge:read:send
+            - message:acknowledge:read:received
+            - message:acknowledge:unread:send
+            - message:acknowledge:delivered
+            - message:acknowledge:ignored
+            - message:notify:unread:send
+            - message:notify:unread:received
+            - people:profile:created
+            - people:profile:updated
+            - people:profile:removed
+            - people:bind:session
+            - people:sync:profile
+            - campaign:progress
+            - campaign:dispatched
+            - campaign:running
+            - browsing:request:initiated
+            - browsing:request:rejected
+            - call:request:initiated
+            - call:request:rejected
+            - identity:verify:request
+            - status:health:changed
+            - website:update_visitors_count
+            - website:update_operators_availability
+            - website:users:available
+            - bucket:url:upload:generated
+            - bucket:url:avatar:generated
+            - bucket:url:website:generated
+            - bucket:url:campaign:generated
+            - bucket:url:helpdesk:generated
+            - bucket:url:status:generated
+            - bucket:url:processing:generated
+            - email:subscribe
+            - email:track:view
+            - plugin:channel
+            - plugin:event
+            - plugin:subscription:updated
+            - plugin:settings:saved
+            - plan:subscription:updated
+        data:
+          type: object
+          description: Event-specific payload. Shape varies per `event`.
+          additionalProperties: true
+        timestamp:
+          type: integer
+          format: int64
+          description: UNIX timestamp (milliseconds) at emission.
+
+    RtmEnvelope:
+      type: object
+      description: |
+        Generic envelope used by every RTM event. Mirrors the Web Hooks
+        body but is emitted over Socket.IO. Per-event `data` shapes are
+        documented at https://docs.crisp.chat/references/rtm-api/v1/.
+      required: [website_id, data]
+      properties:
+        website_id: { type: string }
+        data:
+          type: object
+          additionalProperties: true
+        timestamp:
+          type: integer
+          format: int64
+
+    AuthenticationPayload:
+      type: object
+      required: [tier, username, password]
+      properties:
+        tier:
+          type: string
+          enum: [plugin, user]
+          description: Token tier (matches the REST `X-Crisp-Tier` value).
+        username:
+          type: string
+          description: Token identifier.
+        password:
+          type: string
+          format: password
+          description: Token key.
+        events:
+          type: array
+          description: Optional event-name filter list to subscribe to.
+          items: { type: string }

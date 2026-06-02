@@ -12,7 +12,7 @@ tags:
   - Messaging
   - Chatbots
 created: '2026-05-08'
-modified: '2026-05-08'
+modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
   - aid: crisp:crisp-rest-api
@@ -31,6 +31,30 @@ apis:
         url: https://docs.crisp.chat/references/rest-api/v1/
       - type: Developers
         url: https://docs.crisp.chat/
+      - type: OpenAPI
+        url: openapi/crisp-openapi.yml
+  - aid: crisp:crisp-realtime-api
+    name: Crisp Realtime (Webhooks + RTM) v1
+    description: >-
+      Crisp realtime surface combining HTTP Web Hooks (signed plugin hooks and unsigned website hooks) and the Socket.IO RTM API. Both deliver the same conversational, people, campaign, browsing, call, identity, status, website, bucket, email, plugin and plan event taxonomy; RTM additionally exposes spam, people-import progress, widget action, and media-listing events.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://docs.crisp.chat/references/rtm-api/v1/
+    baseURL: https://api.crisp.chat/v1/plugin/connect/endpoints
+    tags:
+      - Webhooks
+      - Realtime
+      - Socket.IO
+      - AsyncAPI
+      - Messaging
+    properties:
+      - type: Documentation
+        url: https://docs.crisp.chat/references/rtm-api/v1/
+      - type: Webhooks
+        url: https://docs.crisp.chat/references/web-hooks/v1/
+      - type: Developers
+        url: https://docs.crisp.chat/
+      - type: AsyncAPI
+        url: asyncapi/crisp-asyncapi.yml
 common:
   - type: GitHubOrganization
     url: https://github.com/crisp-im
