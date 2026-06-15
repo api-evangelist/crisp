@@ -1,0 +1,327 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Crisp REST API v1",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Website",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new website",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.crisp.chat/v1/website",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new website"
+        },
+        {
+          "info": {
+            "name": "Check if website exists",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://api.crisp.chat/v1/website"
+          },
+          "docs": "Check if website exists"
+        },
+        {
+          "info": {
+            "name": "Get website",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.crisp.chat/v1/website/:website_id",
+            "params": [
+              {
+                "name": "website_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get website"
+        },
+        {
+          "info": {
+            "name": "Delete website",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.crisp.chat/v1/website/:website_id",
+            "params": [
+              {
+                "name": "website_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete website"
+        },
+        {
+          "info": {
+            "name": "Abort scheduled website deletion",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.crisp.chat/v1/website/:website_id/expunge",
+            "params": [
+              {
+                "name": "website_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Abort scheduled website deletion"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Conversations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List conversations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.crisp.chat/v1/website/:website_id/conversations/:page_number",
+            "params": [
+              {
+                "name": "website_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List conversations"
+        },
+        {
+          "info": {
+            "name": "Create a new conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.crisp.chat/v1/website/:website_id/conversation",
+            "params": [
+              {
+                "name": "website_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a new conversation"
+        },
+        {
+          "info": {
+            "name": "Get conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.crisp.chat/v1/website/:website_id/conversation/:session_id",
+            "params": [
+              {
+                "name": "website_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get conversation"
+        },
+        {
+          "info": {
+            "name": "List conversation messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.crisp.chat/v1/website/:website_id/conversation/:session_id/messages",
+            "params": [
+              {
+                "name": "website_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List conversation messages"
+        },
+        {
+          "info": {
+            "name": "Send a message in conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.crisp.chat/v1/website/:website_id/conversation/:session_id/message",
+            "params": [
+              {
+                "name": "website_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send a message in conversation"
+        },
+        {
+          "info": {
+            "name": "Update conversation state",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.crisp.chat/v1/website/:website_id/conversation/:session_id/state",
+            "params": [
+              {
+                "name": "website_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update conversation state"
+        },
+        {
+          "info": {
+            "name": "Assign conversation routing",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.crisp.chat/v1/website/:website_id/conversation/:session_id/routing",
+            "params": [
+              {
+                "name": "website_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Assign conversation routing"
+        },
+        {
+          "info": {
+            "name": "Get conversation metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.crisp.chat/v1/website/:website_id/conversation/:session_id/meta",
+            "params": [
+              {
+                "name": "website_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get conversation metadata"
+        },
+        {
+          "info": {
+            "name": "Save conversation participants",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.crisp.chat/v1/website/:website_id/conversation/:session_id/participants",
+            "params": [
+              {
+                "name": "website_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Save conversation participants"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
