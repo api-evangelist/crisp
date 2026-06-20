@@ -4,7 +4,7 @@ name: Crisp
 kind: company
 description: >-
   Crisp is a customer messaging platform offering live chat, shared inbox, helpdesk, chatbot, and CRM features for businesses of all sizes.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Customer Service
   - Live Chat
@@ -19,7 +19,7 @@ apis:
     name: Crisp REST API v1
     description: >-
       Crisp REST API v1 manages websites, conversations, messages, people (contacts), segments, helpdesks, campaigns, plugins, and operator/team configuration with token-based scoped authentication.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://docs.crisp.chat/references/rest-api/v1/
     baseURL: https://api.crisp.chat/v1
     tags:
@@ -37,7 +37,7 @@ apis:
     name: Crisp Realtime (Webhooks + RTM) v1
     description: >-
       Crisp realtime surface combining HTTP Web Hooks (signed plugin hooks and unsigned website hooks) and the Socket.IO RTM API. Both deliver the same conversational, people, campaign, browsing, call, identity, status, website, bucket, email, plugin and plan event taxonomy; RTM additionally exposes spam, people-import progress, widget action, and media-listing events.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://docs.crisp.chat/references/rtm-api/v1/
     baseURL: https://api.crisp.chat/v1/plugin/connect/endpoints
     tags:
