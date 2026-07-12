@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/crisp-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BasicAuth
+  type: http
+  scheme: basic
+  description: |-
+    Use plugin token credentials. HTTP Basic with identifier:key, plus
+    the X-Crisp-Tier header (`plugin`, `user`, or `tier`).
+  sources:
+  - openapi/crisp-openapi.yml

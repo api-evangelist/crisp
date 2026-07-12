@@ -56,6 +56,10 @@ apis:
       - type: AsyncAPI
         url: asyncapi/crisp-asyncapi.yml
 common:
+  - type: DomainSecurity
+    url: security/crisp-domain-security.yml
+  - type: Authentication
+    url: authentication/crisp-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/crisp-im
   - type: LinkedIn
@@ -70,6 +74,8 @@ common:
     url: rate-limits/crisp-rate-limits.yml
   - type: FinOps
     url: finops/crisp-finops.yml
+  - url: https://crisp.chat/en/blog/
+    type: Blog
   - type: Integrations
     url: https://crisp.chat/en/integrations/
 integrations:
