@@ -1,0 +1,196 @@
+openapi: 3.1.0
+info:
+  title: Crisp REST API v1 Conversations API
+  description: 'Crisp customer messaging REST API covering websites, conversations,
+
+    messages, people and metadata. Endpoint inventory drawn from
+
+    https://docs.crisp.chat/references/rest-api/v1/.
+
+    '
+  version: '1.0'
+  contact:
+    name: Crisp API
+    url: https://docs.crisp.chat/references/rest-api/v1/
+servers:
+- url: https://api.crisp.chat/v1
+  description: Production
+security:
+- BasicAuth: []
+tags:
+- name: Conversations
+paths:
+  /website/{website_id}/conversations/{page_number}:
+    get:
+      summary: List conversations
+      operationId: listConversations
+      tags:
+      - Conversations
+      parameters:
+      - $ref: '#/components/parameters/websiteId'
+      - $ref: '#/components/parameters/pageNumber'
+      responses:
+        '200':
+          description: Conversations
+  /website/{website_id}/conversation:
+    post:
+      summary: Create a new conversation
+      operationId: createConversation
+      tags:
+      - Conversations
+      parameters:
+      - $ref: '#/components/parameters/websiteId'
+      responses:
+        '201':
+          description: Created
+  /website/{website_id}/conversation/{session_id}:
+    get:
+      summary: Get conversation
+      operationId: getConversation
+      tags:
+      - Conversations
+      parameters:
+      - $ref: '#/components/parameters/websiteId'
+      - $ref: '#/components/parameters/sessionId'
+      responses:
+        '200':
+          description: Conversation
+  /website/{website_id}/conversation/{session_id}/messages:
+    get:
+      summary: List conversation messages
+      operationId: listConversationMessages
+      tags:
+      - Conversations
+      parameters:
+      - $ref: '#/components/parameters/websiteId'
+      - $ref: '#/components/parameters/sessionId'
+      responses:
+        '200':
+          description: Messages
+  /website/{website_id}/conversation/{session_id}/message:
+    post:
+      summary: Send a message in conversation
+      operationId: sendConversationMessage
+      tags:
+      - Conversations
+      parameters:
+      - $ref: '#/components/parameters/websiteId'
+      - $ref: '#/components/parameters/sessionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                from:
+                  type: string
+                origin:
+                  type: string
+                content: {}
+      responses:
+        '200':
+          description: Sent
+  /website/{website_id}/conversation/{session_id}/state:
+    patch:
+      summary: Update conversation state
+      operationId: updateConversationState
+      tags:
+      - Conversations
+      parameters:
+      - $ref: '#/components/parameters/websiteId'
+      - $ref: '#/components/parameters/sessionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  type: string
+                  enum:
+                  - pending
+                  - unresolved
+                  - resolved
+      responses:
+        '200':
+          description: Updated
+  /website/{website_id}/conversation/{session_id}/routing:
+    patch:
+      summary: Assign conversation routing
+      operationId: updateConversationRouting
+      tags:
+      - Conversations
+      parameters:
+      - $ref: '#/components/parameters/websiteId'
+      - $ref: '#/components/parameters/sessionId'
+      responses:
+        '200':
+          description: Updated
+  /website/{website_id}/conversation/{session_id}/meta:
+    get:
+      summary: Get conversation metadata
+      operationId: getConversationMeta
+      tags:
+      - Conversations
+      parameters:
+      - $ref: '#/components/parameters/websiteId'
+      - $ref: '#/components/parameters/sessionId'
+      responses:
+        '200':
+          description: Metadata
+  /website/{website_id}/conversation/{session_id}/participants:
+    put:
+      summary: Save conversation participants
+      operationId: saveConversationParticipants
+      tags:
+      - Conversations
+      parameters:
+      - $ref: '#/components/parameters/websiteId'
+      - $ref: '#/components/parameters/sessionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                participants:
+                  type: array
+                  items:
+                    type: object
+      responses:
+        '200':
+          description: Saved
+components:
+  parameters:
+    websiteId:
+      in: path
+      name: website_id
+      required: true
+      schema:
+        type: string
+    pageNumber:
+      in: path
+      name: page_number
+      required: true
+      schema:
+        type: integer
+    sessionId:
+      in: path
+      name: session_id
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: 'Use plugin token credentials. HTTP Basic with identifier:key, plus
+
+        the X-Crisp-Tier header (`plugin`, `user`, or `tier`).
+
+        '

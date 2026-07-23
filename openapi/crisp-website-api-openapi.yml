@@ -1,0 +1,99 @@
+openapi: 3.1.0
+info:
+  title: Crisp REST API v1 Conversations Website API
+  description: 'Crisp customer messaging REST API covering websites, conversations,
+
+    messages, people and metadata. Endpoint inventory drawn from
+
+    https://docs.crisp.chat/references/rest-api/v1/.
+
+    '
+  version: '1.0'
+  contact:
+    name: Crisp API
+    url: https://docs.crisp.chat/references/rest-api/v1/
+servers:
+- url: https://api.crisp.chat/v1
+  description: Production
+security:
+- BasicAuth: []
+tags:
+- name: Website
+paths:
+  /website:
+    head:
+      summary: Check if website exists
+      operationId: checkWebsite
+      tags:
+      - Website
+      responses:
+        '200':
+          description: Exists
+    post:
+      summary: Create a new website
+      operationId: createWebsite
+      tags:
+      - Website
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                domain:
+                  type: string
+      responses:
+        '201':
+          description: Created
+  /website/{website_id}:
+    get:
+      summary: Get website
+      operationId: getWebsite
+      tags:
+      - Website
+      parameters:
+      - $ref: '#/components/parameters/websiteId'
+      responses:
+        '200':
+          description: Website
+    delete:
+      summary: Delete website
+      operationId: deleteWebsite
+      tags:
+      - Website
+      parameters:
+      - $ref: '#/components/parameters/websiteId'
+      responses:
+        '200':
+          description: Deletion scheduled
+  /website/{website_id}/expunge:
+    delete:
+      summary: Abort scheduled website deletion
+      operationId: abortDeleteWebsite
+      tags:
+      - Website
+      parameters:
+      - $ref: '#/components/parameters/websiteId'
+      responses:
+        '200':
+          description: Aborted
+components:
+  parameters:
+    websiteId:
+      in: path
+      name: website_id
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: 'Use plugin token credentials. HTTP Basic with identifier:key, plus
+
+        the X-Crisp-Tier header (`plugin`, `user`, or `tier`).
+
+        '
