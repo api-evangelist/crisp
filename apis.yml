@@ -4,7 +4,20 @@ name: Crisp
 kind: company
 description: >-
   Crisp is a customer messaging platform offering live chat, shared inbox, helpdesk, chatbot, and CRM features for businesses of all sizes.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/crisp.png
 tags:
   - Customer Service
   - Live Chat
@@ -15,46 +28,59 @@ created: '2026-05-08'
 modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
-  - aid: crisp:crisp-rest-api
-    name: Crisp REST API v1
-    description: >-
-      Crisp REST API v1 manages websites, conversations, messages, people (contacts), segments, helpdesks, campaigns, plugins, and operator/team configuration with token-based scoped authentication.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.crisp.chat/references/rest-api/v1/
-    baseURL: https://api.crisp.chat/v1
-    tags:
-      - Messaging
-      - Customer Service
-      - REST
-    properties:
-      - type: Documentation
-        url: https://docs.crisp.chat/references/rest-api/v1/
-      - type: Developers
-        url: https://docs.crisp.chat/
-      - type: OpenAPI
-        url: openapi/crisp-openapi.yml
-  - aid: crisp:crisp-realtime-api
-    name: Crisp Realtime (Webhooks + RTM) v1
-    description: >-
-      Crisp realtime surface combining HTTP Web Hooks (signed plugin hooks and unsigned website hooks) and the Socket.IO RTM API. Both deliver the same conversational, people, campaign, browsing, call, identity, status, website, bucket, email, plugin and plan event taxonomy; RTM additionally exposes spam, people-import progress, widget action, and media-listing events.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.crisp.chat/references/rtm-api/v1/
-    baseURL: https://api.crisp.chat/v1/plugin/connect/endpoints
-    tags:
-      - Webhooks
-      - Realtime
-      - Socket.IO
-      - AsyncAPI
-      - Messaging
-    properties:
-      - type: Documentation
-        url: https://docs.crisp.chat/references/rtm-api/v1/
-      - type: Webhooks
-        url: https://docs.crisp.chat/references/web-hooks/v1/
-      - type: Developers
-        url: https://docs.crisp.chat/
-      - type: AsyncAPI
-        url: asyncapi/crisp-asyncapi.yml
+- aid: crisp:crisp-realtime-api
+  name: Crisp Realtime (Webhooks + RTM) v1
+  description: >-
+    Crisp realtime surface combining HTTP Web Hooks (signed plugin hooks and unsigned website hooks) and
+    the Socket.IO RTM API. Both deliver the same conversational, people, campaign, browsing, call, identity,
+    status, website, bucket, email, plugin and plan event taxonomy; RTM additionally exposes spam, people-import
+    progress, widget action, and media-listing events.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.crisp.chat/references/rtm-api/v1/
+  baseURL: https://api.crisp.chat/v1/plugin/connect/endpoints
+  tags:
+  - Webhooks
+  - Realtime
+  - Socket.IO
+  - AsyncAPI
+  - Messaging
+  properties:
+  - type: Documentation
+    url: https://docs.crisp.chat/references/rtm-api/v1/
+  - type: Webhooks
+    url: https://docs.crisp.chat/references/web-hooks/v1/
+  - type: Developers
+    url: https://docs.crisp.chat/
+  - type: AsyncAPI
+    url: asyncapi/crisp-asyncapi.yml
+- aid: crisp:crisp-conversations-api
+  name: Crisp Conversations API
+  description: The Conversations API from Crisp — 9 operation(s) for conversations.
+  humanURL: https://docs.crisp.chat/references/rest-api/v1/
+  baseURL: https://api.crisp.chat/v1
+  tags:
+  - Conversations
+  properties:
+  - type: OpenAPI
+    url: openapi/crisp-conversations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.crisp.chat/references/rest-api/v1/
+  - type: Developers
+    url: https://docs.crisp.chat/
+- aid: crisp:crisp-website-api
+  name: Crisp Website API
+  description: The Website API from Crisp — 3 operation(s) for website.
+  humanURL: https://docs.crisp.chat/references/rest-api/v1/
+  baseURL: https://api.crisp.chat/v1
+  tags:
+  - Website
+  properties:
+  - type: OpenAPI
+    url: openapi/crisp-website-api-openapi.yml
+  - type: Documentation
+    url: https://docs.crisp.chat/references/rest-api/v1/
+  - type: Developers
+    url: https://docs.crisp.chat/
 common:
   - type: AgenticAccess
     url: agentic-access/crisp-agentic-access.yml
