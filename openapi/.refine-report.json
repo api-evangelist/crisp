@@ -1,0 +1,16 @@
+{
+  "provider": "crisp",
+  "sources": [
+    "crisp-conversations-api-openapi.yml",
+    "crisp-website-api-openapi.yml"
+  ],
+  "outputs": [
+    "crisp-conversations-api-openapi.yml",
+    "crisp-website-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
