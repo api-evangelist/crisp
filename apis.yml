@@ -106,6 +106,9 @@ apis:
   - type: Developers
     url: https://docs.crisp.chat/
 common:
+  - type: CapabilityMap
+    url: capabilities/crisp-capability-edges.yml
+    name: Crisp Business Capability Map
   - type: AgenticAccess
     url: agentic-access/crisp-agentic-access.yml
   - type: DomainSecurity
