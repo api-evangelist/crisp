@@ -98,6 +98,8 @@ apis:
   humanURL: https://docs.crisp.chat/references/rest-api/v1/
   baseURL: https://api.crisp.chat/v1
   tags:
+  - Websites
+  tags_raw:
   - Website
   properties:
   - type: OpenAPI
