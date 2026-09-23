@@ -1,13 +1,11 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Crisp REST API v1 Conversations API
   description: 'Crisp customer messaging REST API covering websites, conversations,
 
     messages, people and metadata. Endpoint inventory drawn from
 
-    https://docs.crisp.chat/references/rest-api/v1/.
-
-    '
+    https://docs.crisp.chat/references/rest-api/v1/.'
   version: '1.0'
   contact:
     name: Crisp API
@@ -173,18 +171,18 @@ components:
       required: true
       schema:
         type: string
-    pageNumber:
-      in: path
-      name: page_number
-      required: true
-      schema:
-        type: integer
     sessionId:
       in: path
       name: session_id
       required: true
       schema:
         type: string
+    pageNumber:
+      in: path
+      name: page_number
+      required: true
+      schema:
+        type: integer
   securitySchemes:
     BasicAuth:
       type: http
