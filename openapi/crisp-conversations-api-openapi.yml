@@ -165,15 +165,15 @@ paths:
           description: Saved
 components:
   parameters:
-    websiteId:
-      in: path
-      name: website_id
-      required: true
-      schema:
-        type: string
     sessionId:
       in: path
       name: session_id
+      required: true
+      schema:
+        type: string
+    websiteId:
+      in: path
+      name: website_id
       required: true
       schema:
         type: string
