@@ -16,56 +16,58 @@ deployment:
 tools_count: 26
 tools:
 - name: get_website
-  description: ''
+  description: Acquire base information about a Crisp website / workspace
 - name: get_website_availability_status
-  description: ''
+  description: Resolve the availability status of a website
 - name: list_website_operators
-  description: ''
+  description: List all operators for a website
 - name: list_website_operators_active
-  description: ''
+  description: List active operators for a website
 - name: get_website_operator
-  description: ''
+  description: Resolve a website operator
 - name: get_website_settings
-  description: ''
+  description: Acquire website settings
 - name: get_website_visitors_count
-  description: ''
+  description: Count website visitors
 - name: list_website_visitors
-  description: ''
+  description: List website visitors
 - name: list_website_conversations
-  description: ''
+  description: List website conversations
 - name: get_website_conversation
-  description: ''
+  description: Resolve a website conversation
 - name: update_website_conversation_meta
-  description: ''
+  description: Update metadata for a website conversation (email, nickname, etc.)
 - name: change_website_conversation_state
-  description: ''
+  description: Changes state for a website conversation
 - name: list_website_conversation_messages
-  description: ''
+  description: List messages for a website conversation
 - name: list_website_people_profiles
-  description: ''
+  description: List website people CRM profiles
 - name: get_website_people_profile
-  description: ''
+  description: Resolve a website people CRM profile
 - name: update_website_people_profile
-  description: ''
+  description: Update a website people CRM profile (full name, phone, segments, etc.)
 - name: list_website_people_conversations
-  description: ''
+  description: List conversations for a website people CRM profile
 - name: get_website_helpdesk
-  description: ''
+  description: Resolve a website helpdesk
 - name: list_website_helpdesk_locales
-  description: ''
+  description: List all website helpdesk locales
 - name: list_website_helpdesk_articles
-  description: ''
+  description: List website helpdesk articles
 - name: get_website_helpdesk_article
-  description: ''
+  description: Resolve a website helpdesk article and its full content
 - name: update_website_helpdesk_article
-  description: ''
+  description: Update a website helpdesk article (eg. its full content)
 - name: list_website_helpdesk_categories
-  description: ''
+  description: List website helpdesk categories
 - name: get_website_helpdesk_category
-  description: ''
+  description: Resolve a website helpdesk category
 - name: update_website_helpdesk_category
-  description: ''
+  description: Update a website helpdesk category (eg. name, description, etc.)
 - name: get_website_helpdesk_settings
-  description: ''
+  description: Resolve website helpdesk settings
 tools_source: live tools/list via initialize handshake, 2026-09-11 (signals/audit_mcp_authorship.py --probe)
 authorship: provider
+descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
+  --descriptions, 2026-09-28
