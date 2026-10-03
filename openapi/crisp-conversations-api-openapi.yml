@@ -165,6 +165,12 @@ paths:
           description: Saved
 components:
   parameters:
+    pageNumber:
+      in: path
+      name: page_number
+      required: true
+      schema:
+        type: integer
     sessionId:
       in: path
       name: session_id
@@ -177,12 +183,6 @@ components:
       required: true
       schema:
         type: string
-    pageNumber:
-      in: path
-      name: page_number
-      required: true
-      schema:
-        type: integer
   securitySchemes:
     BasicAuth:
       type: http
