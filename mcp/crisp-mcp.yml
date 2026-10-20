@@ -13,60 +13,114 @@ deployment:
   probe: live
   checked: '2026-09-11'
   source: docs-check 2026-09-11 (endpoint found in the provider's own documentation, then probed)
-tools_count: 26
+tools_count: 42
 tools:
-- name: get_website
-  description: Acquire base information about a Crisp website / workspace
-- name: get_website_availability_status
-  description: Resolve the availability status of a website
-- name: list_website_operators
-  description: List all operators for a website
-- name: list_website_operators_active
-  description: List active operators for a website
-- name: get_website_operator
-  description: Resolve a website operator
+- name: get_website_information
+  description: Returns basic information for the current Crisp workspace.
 - name: get_website_settings
-  description: Acquire website settings
-- name: get_website_visitors_count
-  description: Count website visitors
-- name: list_website_visitors
-  description: List website visitors
-- name: list_website_conversations
-  description: List website conversations
-- name: get_website_conversation
-  description: Resolve a website conversation
-- name: update_website_conversation_meta
-  description: Update metadata for a website conversation (email, nickname, etc.)
-- name: change_website_conversation_state
-  description: Changes state for a website conversation
-- name: list_website_conversation_messages
-  description: List messages for a website conversation
-- name: list_website_people_profiles
-  description: List website people CRM profiles
-- name: get_website_people_profile
-  description: Resolve a website people CRM profile
-- name: update_website_people_profile
-  description: Update a website people CRM profile (full name, phone, segments, etc.)
-- name: list_website_people_conversations
-  description: List conversations for a website people CRM profile
-- name: get_website_helpdesk
-  description: Resolve a website helpdesk
-- name: list_website_helpdesk_locales
-  description: List all website helpdesk locales
-- name: list_website_helpdesk_articles
-  description: List website helpdesk articles
-- name: get_website_helpdesk_article
-  description: Resolve a website helpdesk article and its full content
-- name: update_website_helpdesk_article
-  description: Update a website helpdesk article (eg. its full content)
-- name: list_website_helpdesk_categories
-  description: List website helpdesk categories
-- name: get_website_helpdesk_category
-  description: Resolve a website helpdesk category
-- name: update_website_helpdesk_category
-  description: Update a website helpdesk category (eg. name, description, etc.)
-- name: get_website_helpdesk_settings
-  description: Resolve website helpdesk settings
+  description: Returns the workspace's full settings. This advanced response may be large; use it when
+    the user asks about workspace configuration or a specific setting.
+- name: get_availability_status
+  description: Returns the general workspace availability shown to visitors in the chatbox widget (online
+    or offline).
+- name: list_operators
+  description: Lists the human operators who are members of the workspace.
+- name: list_operators_active
+  description: Lists workspace operators who are currently active in a Crisp app.
+- name: get_visitors_count
+  description: Returns the number of visitors currently active on the workspace's chatbox widget. This
+    is not a count of visitors currently typing or actively chatting.
+- name: list_visitors
+  description: Lists visitors currently active on the workspace's chatbox widget.
+- name: list_inboxes
+  description: Lists the available workspace sub-inboxes, which group conversations together.
+- name: list_latest_conversations
+  description: Lists recent conversations for the workspace. Use the search_conversations tool when locating
+    conversations by message content or segments.
+- name: list_conversations_at_page
+  description: Lists conversations in the workspace for one specified page. This tool is paginated, more
+    entries can thus be retrieved.
+- name: search_conversations
+  description: Searches workspace conversations by message content or conversation segments. Use this
+    when locating a conversation by content or segment rather than recency.
+- name: get_conversation
+  description: Returns detailed data and metadata for one conversation. This response may be verbose;
+    use the list_latest_conversation_messages tool if you need messages from that conversation.
+- name: send_conversation_message_text
+  description: Sends a customer-visible text message to the recipient in an existing conversation.
+- name: send_conversation_message_note
+  description: Adds an internal note to an existing conversation. Notes are visible only to workspace
+    operators and are not sent to the recipient. They stay private to your team at any time.
+- name: set_conversation_full_name
+  description: Sets the contact's full name in a conversation's metadata.
+- name: set_conversation_email
+  description: Sets the contact's email address in a conversation's metadata.
+- name: set_conversation_phone
+  description: Sets the contact's phone number in a conversation's metadata.
+- name: change_conversation_state
+  description: Changes a conversation's state to resolved, unresolved, or pending.
+- name: move_conversation_inbox
+  description: Moves a conversation to the specified inbox. Use the list_inboxes tool to discover a valid
+    inbox_id when it is not already known.
+- name: list_latest_conversation_messages
+  description: Lists recent messages for one conversation. Use this when recent context is sufficient
+    instead of retrieving detailed conversation data.
+- name: list_people_profiles_at_page
+  description: Lists CRM contacts in the workspace for one specified page. This tool is paginated, more
+    entries can thus be retrieved.
+- name: search_people_profiles
+  description: Searches CRM contacts by full name or email address. Use this to find a person record;
+    use the search_conversations tool to find a conversation.
+- name: get_people_profile
+  description: Returns detailed data for one CRM contact. This response may be verbose; use the search_people_profiles
+    tool first when the contact identifier is not known.
+- name: update_people_profile_full_name
+  description: Updates the full name of a specific CRM contact.
+- name: update_people_profile_email
+  description: Updates the email address of a specific CRM contact.
+- name: update_people_profile_phone
+  description: Updates the phone number of a specific CRM contact.
+- name: update_people_profile_segments
+  description: Updates the segments of a specific CRM contact.
+- name: list_people_conversations
+  description: Lists conversations linked to a CRM contact. Returns conversation session identifiers only;
+    use a conversation tool to inspect their content or metadata.
+- name: get_helpdesk_information
+  description: Returns basic Knowledge Base information, including its name and URL.
+- name: list_helpdesk_locales
+  description: Lists the configured Knowledge Base locales and their public URLs.
+- name: list_helpdesk_pages
+  description: Lists published Knowledge Base page URLs and their tree paths. Prefer the list_helpdesk_tree
+    tool to discover tree_path values for file operations.
+- name: list_helpdesk_tree
+  description: Lists the Knowledge Base file tree. Use it to discover valid tree_path values for file
+    operations. Recursive traversal is needed to descend deeper in the tree, using the sub_path argument.
+    Descend only if the user asks for a particular content.
+- name: search_helpdesk_tree
+  description: Searches the expanded Knowledge Base file tree by file title. Use it to locate a file when
+    its path is unknown; no recursive traversal is needed.
+- name: create_helpdesk_tree_path
+  description: Creates a Knowledge Base file at the specified tree_path.
+- name: delete_helpdesk_tree_path
+  description: Deletes the Knowledge Base file at the specified tree_path. Confirm the intended file and
+    path before calling.
+- name: get_helpdesk_tree_path_content
+  description: Returns the content of the Knowledge Base file at the specified tree_path.
+- name: update_helpdesk_tree_path_content
+  description: Updates the content of the Knowledge Base file at the specified tree_path.
+- name: get_helpdesk_tree_path_title
+  description: Returns the title of the Knowledge Base file at the specified tree_path.
+- name: update_helpdesk_tree_path_title
+  description: Updates the title in the metadata of the Knowledge Base file at the specified tree_path.
+- name: get_helpdesk_tree_path_metadata
+  description: Returns the whole metadata of the Knowledge Base file at the specified tree_path. Use the
+    get_helpdesk_tree_path_title tool instead if you only need the title.
+- name: get_helpdesk_settings
+  description: Returns the Knowledge Base settings. This advanced response may be large; use it when the
+    user asks about Knowledge Base configuration or a specific setting.
+- name: report_feedback_missing_tool
+  description: Reports feedback to the Crisp team about something missing or broken on this MCP server.
+    This tool should be suggested to the user if the AI agent gets stuck. An action_trace should be provided.
 tools_source: live tools/list via initialize handshake, 2026-09-11 (signals/audit_mcp_authorship.py --probe)
 authorship: provider
 descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
