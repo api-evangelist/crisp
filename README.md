@@ -1,4 +1,4 @@
-# Crisp (crisp)
+# Crisp
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,80 +66,170 @@
 
 Crisp is a customer messaging platform offering live chat, shared inbox, helpdesk, chatbot, and CRM features for businesses of all sizes.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/crisp/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/crisp/refs/heads/main/apis.yml)
+**Areas:** Customer Service · Live Chat · Help Desk · Messaging · Chatbots · Real-Time
 
-## Tags
+## Crisp on APIs.io
 
-- Customer Service
-- Live Chat
-- Helpdesk
-- Messaging
-- Chatbots
+Everything profiled for Crisp is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/crisp/](https://apis.io/providers/crisp/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (3)
 
-- **Created:** 2026-05-08
-- **Modified:** 2026-05-30
+- [Crisp Realtime (Webhooks + RTM) v1](https://apis.io/apis/crisp/crisp-realtime-api/) — Crisp realtime surface combining HTTP Web Hooks (signed plugin hooks and unsigned website hooks) and the Socket.IO RTM API. Both deliver the same…
+- [Crisp Conversations API](https://apis.io/apis/crisp/crisp-conversations-api/) — The Conversations API from Crisp — 9 operation(s) for conversations.
+- [Crisp Website API](https://apis.io/apis/crisp/crisp-website-api/) — The Website API from Crisp — 3 operation(s) for website.
 
-## APIs
+### Published properties
 
-### Crisp REST API v1
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Crisp REST API v1 manages websites, conversations, messages, people (contacts), segments, helpdesks, campaigns, plugins, and operator/team configuration with token-based scoped authentication.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://docs.crisp.chat/references/rest-api/v1/](https://docs.crisp.chat/references/rest-api/v1/)
-- **Base URL:** `https://api.crisp.chat/v1`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Crisp Realtime Surface (Webhooks + RTM)](https://apis.io/asyncapis/crisp/crisp-asyncapi/)
 
-- Messaging
-- Customer Service
-- REST
+#### Event channels (84)
 
-#### Properties
+Individual events and webhooks the provider emits.
 
-- [Documentation](https://docs.crisp.chat/references/rest-api/v1/)
-- [Developers](https://docs.crisp.chat/)
-- [OpenAPI](openapi/crisp-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/crisp.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/crisp.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [rtm/authentication](https://apis.io/channels/crisp/rtm-authentication/)
+- [rtm/browsing:request:initiated](https://apis.io/channels/crisp/rtm-browsing-request-initiated/)
+- [rtm/browsing:request:rejected](https://apis.io/channels/crisp/rtm-browsing-request-rejected/)
+- [rtm/bucket:url:avatar:generated](https://apis.io/channels/crisp/rtm-bucket-url-avatar-generated/)
+- [rtm/bucket:url:campaign:generated](https://apis.io/channels/crisp/rtm-bucket-url-campaign-generated/)
+- [rtm/bucket:url:helpdesk:generated](https://apis.io/channels/crisp/rtm-bucket-url-helpdesk-generated/)
+- [rtm/bucket:url:processing:generated](https://apis.io/channels/crisp/rtm-bucket-url-processing-generated/)
+- [rtm/bucket:url:status:generated](https://apis.io/channels/crisp/rtm-bucket-url-status-generated/)
+- [rtm/bucket:url:upload:generated](https://apis.io/channels/crisp/rtm-bucket-url-upload-generated/)
+- [rtm/bucket:url:website:generated](https://apis.io/channels/crisp/rtm-bucket-url-website-generated/)
+- [rtm/call:request:initiated](https://apis.io/channels/crisp/rtm-call-request-initiated/)
+- [rtm/call:request:rejected](https://apis.io/channels/crisp/rtm-call-request-rejected/)
+- [rtm/campaign:dispatched](https://apis.io/channels/crisp/rtm-campaign-dispatched/)
+- [rtm/campaign:progress](https://apis.io/channels/crisp/rtm-campaign-progress/)
+- [rtm/campaign:running](https://apis.io/channels/crisp/rtm-campaign-running/)
+- [rtm/email:subscribe](https://apis.io/channels/crisp/rtm-email-subscribe/)
+- [rtm/email:track:view](https://apis.io/channels/crisp/rtm-email-track-view/)
+- [rtm/identity:verify:request](https://apis.io/channels/crisp/rtm-identity-verify-request/)
+- [rtm/media:animation:listed](https://apis.io/channels/crisp/rtm-media-animation-listed/)
+- [rtm/message:acknowledge:delivered](https://apis.io/channels/crisp/rtm-message-acknowledge-delivered/)
+- [rtm/message:acknowledge:ignored](https://apis.io/channels/crisp/rtm-message-acknowledge-ignored/)
+- [rtm/message:acknowledge:read:received](https://apis.io/channels/crisp/rtm-message-acknowledge-read-received/)
+- [rtm/message:acknowledge:read:send](https://apis.io/channels/crisp/rtm-message-acknowledge-read-send/)
+- [rtm/message:acknowledge:unread:send](https://apis.io/channels/crisp/rtm-message-acknowledge-unread-send/)
+- [rtm/message:compose:receive](https://apis.io/channels/crisp/rtm-message-compose-receive/)
+- …and 59 more published on APIs.io
 
-### Crisp Realtime (Webhooks + RTM) v1
+#### MCP servers (1)
 
-Crisp realtime surface combining HTTP Web Hooks (signed plugin hooks and unsigned website hooks) and the Socket.IO RTM API. Both deliver the same conversational, people, campaign, browsing, call, identity, status, website, bucket, email, plugin and plan event taxonomy; RTM additionally exposes spam, people-import progress, widget action, and media-listing events.
+Model Context Protocol servers that expose the API to agents.
 
-- **Human URL:** [https://docs.crisp.chat/references/rtm-api/v1/](https://docs.crisp.chat/references/rtm-api/v1/)
-- **Base URL:** `https://api.crisp.chat/v1/plugin/connect/endpoints`
+- [crisp](https://apis.io/servers/crisp/crisp/)
 
-#### Tags
+#### Agentic access (1)
 
-- Webhooks
-- Realtime
-- Socket.IO
-- AsyncAPI
-- Messaging
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Properties
+- [Crisp Agentic Access](https://apis.io/agentic-access/crisp/crisp-agentic-access/)
 
-- [Documentation](https://docs.crisp.chat/references/rtm-api/v1/)
-- [Webhooks](https://docs.crisp.chat/references/web-hooks/v1/)
-- [Developers](https://docs.crisp.chat/)
-- [AsyncAPI](asyncapi/crisp-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [Postman Collection](collections/crisp.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/crisp.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Collections (3)
 
-## Common Properties
+Postman and Open Collection request collections.
 
-- [GitHub Organization](https://github.com/crisp-im)
-- [LinkedIn](https://www.linkedin.com/company/crisp-im)
+- [Crisp REST API v1](https://apis.io/collections/crisp/open-crisp/)
+- [Crisp REST API v1 Conversations API](https://apis.io/collections/crisp/open-crisp-conversations-api/)
+- [Crisp REST API v1 Conversations Website API](https://apis.io/collections/crisp/open-crisp-website-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Crisp — asyncapi rules](https://apis.io/rules/crisp/crisp-asyncapi-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Crisp Authentication](https://apis.io/security/crisp/crisp-authentication/)
+- [Crisp Domain Security](https://apis.io/security/crisp/crisp-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Crisp Plans Pricing](https://apis.io/plans/crisp/crisp-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Crisp Rate Limits](https://apis.io/rate-limits/crisp/crisp-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Crisp Finops](https://apis.io/finops/crisp/crisp-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://crisp.chat/)
 - [Documentation](https://docs.crisp.chat/references/rest-api/v1/)
-- [Plans](plans/crisp-plans-pricing.yml)
-- [Rate Limits](rate-limits/crisp-rate-limits.yml)
-- [Fin Ops](finops/crisp-finops.yml)
-- [Integrations](https://crisp.chat/en/integrations/)
+- [Blog](https://crisp.chat/en/blog/)
+- [GitHub](https://github.com/crisp-im)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 27.1** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 60.0 |
+| Contract quality | 53.9 |
+| Contract governance | 11.4 |
+| Operational transparency | 15.8 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 5.3 |
+
+**Agent readiness 29.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 11.8** — AI & Biometrics
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/crisp/](https://apis.io/providers/crisp/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Crisp: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/crisp/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
